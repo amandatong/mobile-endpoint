@@ -4,16 +4,18 @@ import os
 import json
 
 app = Flask(__name__)
-password = os.environ.get("PASSWORD")
+password = 'hackmit2021'
 
 @app.route('/')
 def landing():
-    return render_template('index.html', time = datetime.now())
+    baseUri = request.args.get('linkingUri')
+    return render_template('index.html', time = datetime.now(), linkingUri = baseUri)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    baseUri = request.args.get('linkingUri')
     if request.method == 'POST':
         if request.form['password'] == password:
-            return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+            return redirect(baseUri + 'message=fumichael')
         return redirect(url_for('landing'))
     return redirect(url_for('landing'))
