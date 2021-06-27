@@ -4,7 +4,7 @@ import os
 import json
 
 app = Flask(__name__)
-password = 'hackmit2021'
+password = os.environ.get("PASSWORD")
 
 @app.route('/')
 def landing():
